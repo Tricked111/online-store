@@ -43,3 +43,7 @@ main{
   background-color: rgb(63, 63, 252);
   color: white;
 }
+
+.img-large{
+  max-width: 100%;
+}
