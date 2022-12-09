@@ -55,7 +55,7 @@ function ProductScreen (){
         fetchData();
       },[slug]);
 
-    const {state,dispatch: cxtDispatch} = useContext(Store);
+    const {state,dispatch: ctxDispatch} = useContext(Store);
 
     const{cart} = state;
 
@@ -71,7 +71,7 @@ function ProductScreen (){
             return;
         }
 
-        cxtDispatch({
+        ctxDispatch({
             type: 'CART_ADD_ITEM',
             payload: {...product,quantity},
         });
