@@ -12,7 +12,8 @@ import { Helmet } from 'react-helmet-async'
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { getError } from "../utils";
-
+import { useContext } from 'react'
+import { Store } from "../Store";
 
 const reducer = (state,action) => {
     switch(action.type){
@@ -53,7 +54,27 @@ function ProductScreen (){
         fetchData();
       },[slug]);
 
+    const {state,dispatch: cxtDispatch} = useContext(Store);
 
+    const{cart} = state;
+
+    const addToCartHandler = async () => {
+        const existItem = cart.cartItems.find((x) => x._id === product._id);
+        const quantity = existItem ? existItem.quantity + 1 : 1;
+        const { data } = await axios.get(`/api/products/${product._id}`);
+
+        console.log(data.countInStock,quantity)
+
+        if(data.countInStock < quantity) {
+            window.alert("Sorr. Product is out of stock");
+            return;
+        }
+
+        cxtDispatch({
+            type: 'CART_ADD_ITEM',
+            payload: {...product,quantity},
+        });
+    };
 
     return loading? (
         <LoadingBox />
@@ -76,6 +97,9 @@ function ProductScreen (){
                             <title>{product.name}</title>
                             </Helmet>
                         </ListGroup.Item>
+                        
+                            <h1>{product.name}</h1>
+                        
                         
                         <ListGroup.Item variant="flush">
                             <Rating
@@ -122,7 +146,7 @@ function ProductScreen (){
                                 {product.countInStock > 0 && (
                                     <ListGroup.Item>
                                     <div className="d-grid">
-                                        <Button variant="primary">
+                                        <Button onClick={addToCartHandler} variant="primary">
                                             Add to Cart
                                         </Button>
                                     </div>

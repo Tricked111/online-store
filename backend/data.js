@@ -1,18 +1,20 @@
 const data = {
     products: [
         {
+            _id: '1',
             name: 'Nike Slim shirt',
             slug: 'nike-slim-shirt',
             categoey: 'Shirts',
             image: '/images/p1.jpg',
             price: 120,
-            countInStock: 10,
+            countInStock: 0,
             brand: 'Nike',
             rating: 4.5,
             numReviews: 10,
             description: 'hight quality shirt',
         },
         {
+            _id: '2',
             name: 'Puma Slim shirt',
             slug: 'puma-slim-shirt',
             categoey: 'Shirts',
@@ -25,6 +27,7 @@ const data = {
             description: 'hight quality shirt',
         },
         {
+            _id: '3',
             name: 'Adidas Slim shirt',
             slug: 'adidas-slim-shirt',
             categoey: 'Shirts',
