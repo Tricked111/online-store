@@ -26,11 +26,20 @@ main{
   margin: 1rem;
 }
 
-.product img {
-  width: 60%;
+.products img {
+  width: 100%;
   max-width: 400px ;
 }
 
 .product-info{
   padding: 1rem;
+}
+
+.rating span{
+  color: #ffc000;
+}
+
+.btn-primary{
+  background-color: rgb(63, 63, 252);
+  color: white;
 }
