@@ -119,6 +119,14 @@ function ProductScreen (){
                             Description:
                             <p>{product.description}</p>
                         </ListGroup.Item>
+                        {
+                            product.contact && (
+                                <ListGroup.Item>
+                            Contact:
+                            <p>{product.contact}</p>
+                        </ListGroup.Item>
+                            )
+                        }
                     
 
                     </ListGroup>
@@ -138,8 +146,8 @@ function ProductScreen (){
                                     <Row>
                                         <Col>Status:</Col>
                                         <Col>
-                                        {product.countInStock>0?
-                                        <Badge bg="success">In Stock</Badge>   
+                                        {product.countInStock>0 || product.category === 'Service'?
+                                        <Badge bg="success">Available</Badge>   
                                         :
                                         <Badge bg="danger">Unavailable</Badge>   
                                     }</Col>

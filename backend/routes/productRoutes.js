@@ -1,7 +1,7 @@
 import express from 'express';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
-
+import { isAuth } from '../utils.js';
 const productRouter = express.Router();
 
 productRouter.get('/', async (req, res) => {
@@ -119,8 +119,73 @@ productRouter.get('/:id', async (req, res) => {
   }
 });
 
+productRouter.get('/user/:user_id', async (req, res) => {
+  const product = await Product.find({user: req.params.user_id});
+  if (product) {
+    res.send(product);
+  } else {
+    res.status(404).send({ message: 'Product Not Found' });
+  }
+});
 
 
 
+
+
+
+
+  productRouter.post(
+      '/createService',
+      isAuth,
+      expressAsyncHandler(async (req, res) => {
+        const newProduct = new Product({
+          name: req.body.name,
+          slug: req.body.name,
+          image: 'sample',
+          category: 'Service',
+          description: req.body.description,
+          price: req.body.price,
+          rating: 0,
+          numReviews: 0,
+          countInStock: 1000,
+          contact: req.body.contact,
+          user: req.user._id,
+    
+    
+        });
+    
+        const product = await newProduct.save();
+        res.status(201).send({ message: 'New Service Created', product });
+      })
+    );
+
+
+
+
+    productRouter.post(
+      '/createProduct',
+      isAuth,
+      expressAsyncHandler(async (req, res) => {
+        const newProduct = new Product({
+          name: req.body.name,
+          slug: req.body.name,
+          image: 'sample',
+          category: 'Product',
+          description: req.body.description,
+          price: req.body.price,
+          rating: 0,
+          numReviews: 0,
+          countInStock: req.body.countInStock,
+          contact: req.body.contact,
+          user: req.user._id,
+          brand: req.user.brand,
+    
+    
+        });
+    
+        const product = await newProduct.save();
+        res.status(201).send({ message: 'New Service Created', product });
+      })
+    );
 
 export default productRouter;

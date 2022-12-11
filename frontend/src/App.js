@@ -27,6 +27,10 @@ import axios from 'axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import SignupScreen from './screens/SignUpScreen';
+import CreateOrderStartScreen from './screens/CreateOrderStartScreen';
+import CreateServiceScreen from './screens/CreateServiceScreen';
+import CreateProductScreen from './screens/CreateProductScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch} = useContext(Store);
@@ -97,6 +101,9 @@ function App() {
                     <LinkContainer to="/orderhistory">
                       <NavDropdown.Item>Order History</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to="/Placead">
+                      <NavDropdown.Item>Place ad</NavDropdown.Item>
+                    </LinkContainer>
                     <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
@@ -150,6 +157,10 @@ function App() {
               <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/Placead" element={<CreateOrderStartScreen />} />
+              <Route path="/Placead/Service" element={<CreateServiceScreen/>} />
+              <Route path="/Placead/Product" element={<CreateProductScreen/>} />
               <Route
                 path="/shipping"
                 element={<ShippingAddressScreen />}
