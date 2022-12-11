@@ -11,7 +11,7 @@ import Badge from 'react-bootstrap/Badge'
 import Container from 'react-bootstrap/Container'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Store } from './Store';
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SiginScreen';
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -20,6 +20,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import { toast} from 'react-toastify';
+import Button from 'react-bootstrap/Button';
+import { getError } from './utils';
+import axios from 'axios';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch} = useContext(Store);
@@ -33,21 +39,45 @@ function App() {
     localStorage.removeItem('paymentMethod');
     window.location.href = '/signin';
   }
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/categories`);
+        setCategories(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchCategories();
+  }, []);
 
 
   return (
     <BrowserRouter>
     {/* header */}
-    <div className='d-flex flex-column site-container'>
+    <div className={
+          sidebarIsOpen
+            ? 'd-flex flex-column site-container active-cont'
+            : 'd-flex flex-column site-container'
+        }>
     <ToastContainer position="top-right" limit={1} />
       <header>
         <Navbar bg="dark" variant="dark">
           <Container>
+          <Button
+                variant="dark"
+                onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
+              >
+                <i className="fas fa-bars"></i>
+              </Button>
             <LinkContainer to="/">
               <Navbar.Brand>Marketplace</Navbar.Brand>
             </LinkContainer>
             <Nav className="me-auto">
+            <SearchBox />
               <Link to="/cart" className='nav-link'>
                 Cart
                 {
@@ -84,7 +114,31 @@ function App() {
           </Container>
         </Navbar>
       </header>
-      {/* main */}
+      <div
+          className={
+            sidebarIsOpen
+              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
+              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
+          }
+        >
+          <Nav className="flex-column text-white w-100 p-2">
+            <Nav.Item>
+              <strong>Categories</strong>
+            </Nav.Item>
+            {categories.map((category) => (
+              <Nav.Item key={category}>
+                <LinkContainer
+                  to={{
+                    pathname: "/search",
+                    search: `?category=${category}`
+                  }}
+                  onClick={() => setSidebarIsOpen(false)}>
+                  <Nav.Link>{category}</Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+            ))}
+          </Nav>
+        </div>
       <main>
         <Container className='mt-3'>
             <Routes>
@@ -93,6 +147,7 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
               <Route
                 path="/shipping"
                 element={<ShippingAddressScreen />}

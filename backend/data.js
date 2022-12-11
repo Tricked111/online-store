@@ -49,7 +49,7 @@ const data = {
             //_id: '3',
             name: 'Adidas Slim shirt',
             slug: 'adidas-slim-shirt',
-            category: 'Shirts',
+            category: 'Jacket',
             image: '/images/p3.jpg',
             price: 50,
             countInStock: 10,
