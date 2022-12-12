@@ -46,20 +46,13 @@ export default function CreateProductScreen() {
     );
       console.log(data)
       
-      //ctxDispatch({ type: 'CREATE_PRODUCT', payload: data });
-      //localStorage.setItem('myProduct', JSON.stringify(data));
+      
       navigate(redirect || '/');
       console.log(localStorage.getItem('myProduct'))
     } catch (err) {
       toast.error(getError(err));
     }
   };
-
- /*  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]); */
 
 
     return (

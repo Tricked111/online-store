@@ -101,6 +101,17 @@ productRouter.get(
   })
 );
 
+productRouter.get(
+  '/user',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const products = await Product.find({ user: req.user._id });
+    res.send(products);
+  })
+);
+
+
+
 
 productRouter.get('/slug/:slug', async (req, res) => {
     const product = await Product.findOne({ slug: req.params.slug });
@@ -119,14 +130,6 @@ productRouter.get('/:id', async (req, res) => {
   }
 });
 
-productRouter.get('/user/:user_id', async (req, res) => {
-  const product = await Product.find({user: req.params.user_id});
-  if (product) {
-    res.send(product);
-  } else {
-    res.status(404).send({ message: 'Product Not Found' });
-  }
-});
 
 
 
@@ -141,7 +144,7 @@ productRouter.get('/user/:user_id', async (req, res) => {
         const newProduct = new Product({
           name: req.body.name,
           slug: req.body.name,
-          image: 'sample',
+          image: req.body.image || '/images/noimg.jpg',
           category: 'Service',
           description: req.body.description,
           price: req.body.price,
@@ -169,7 +172,7 @@ productRouter.get('/user/:user_id', async (req, res) => {
         const newProduct = new Product({
           name: req.body.name,
           slug: req.body.name,
-          image: 'sample',
+          image: req.body.image || '/images/noimg.jpg',
           category: 'Product',
           description: req.body.description,
           price: req.body.price,
@@ -188,4 +191,22 @@ productRouter.get('/user/:user_id', async (req, res) => {
       })
     );
 
+
+      
+
+
+
+    productRouter.delete(
+      '/:id',
+      isAuth,
+      expressAsyncHandler(async (req, res) => {
+        const product = await Product.findById(req.params.id);
+        if (product) {
+          await product.remove();
+          res.send({ message: 'Product Deleted' });
+        } else {
+          res.status(404).send({ message: 'Product Not Found' });
+        }
+      })
+    );
 export default productRouter;

@@ -31,7 +31,9 @@ import SignupScreen from './screens/SignUpScreen';
 import CreateOrderStartScreen from './screens/CreateOrderStartScreen';
 import CreateServiceScreen from './screens/CreateServiceScreen';
 import CreateProductScreen from './screens/CreateProductScreen';
-
+import MyAdScreen from './screens/MyAdScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
+import ServiceEditScreen from './screens/ServiceEditScreen';
 function App() {
   const { state, dispatch: ctxDispatch} = useContext(Store);
   const { cart,userInfo } = state;
@@ -104,6 +106,9 @@ function App() {
                     <LinkContainer to="/Placead">
                       <NavDropdown.Item>Place ad</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to="/MyAd">
+                      <NavDropdown.Item>My Ad</NavDropdown.Item>
+                    </LinkContainer>
                     <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
@@ -161,6 +166,19 @@ function App() {
               <Route path="/Placead" element={<CreateOrderStartScreen />} />
               <Route path="/Placead/Service" element={<CreateServiceScreen/>} />
               <Route path="/Placead/Product" element={<CreateProductScreen/>} />
+              <Route
+                path="/MyAd/Product/edit/:id"
+                element={
+                    <ProductEditScreen />
+                }
+              ></Route>
+              <Route
+                path="/MyAd/Service/edit/:id"
+                element={
+                    <ServiceEditScreen />
+                }
+              ></Route>
+              <Route path="/MyAd" element={<MyAdScreen/>} />
               <Route
                 path="/shipping"
                 element={<ShippingAddressScreen />}

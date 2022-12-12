@@ -44,8 +44,6 @@ export default function CreateServiceScreen() {
     );
       console.log(data)
       
-      //ctxDispatch({ type: 'CREATE_PRODUCT', payload: data });
-      //localStorage.setItem('myProduct', JSON.stringify(data));
       navigate(redirect || '/');
       console.log(localStorage.getItem('myProduct'))
     } catch (err) {
