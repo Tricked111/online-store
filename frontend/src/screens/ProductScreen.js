@@ -16,6 +16,7 @@ import { useContext } from 'react'
 import { Store } from "../Store";
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const reducer = (state,action) => {
     switch(action.type){
       case 'FETCH_REQUEST':
@@ -158,7 +159,7 @@ function ProductScreen (){
                             </Col>
                             <Col md={5}>
                             {userInfo.name && (<Modal.Body>Name: {userInfo.name}</Modal.Body>)}
-                            {userInfo.link && (<Modal.Body>Link: <Link to={`${userInfo.link}`}>{userInfo.link}</Link></Modal.Body>)}
+                            {userInfo.link && (<Modal.Body>Link: <a href={`${userInfo.link}`}>{userInfo.link}</a></Modal.Body>)}
                             {userInfo.email && (<Modal.Body>Email: {userInfo.email}</Modal.Body>)}
                             </Col>
                             </Row>
