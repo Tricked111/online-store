@@ -53,6 +53,10 @@ main{
   height: 55px;
 }
 
+.screen-product{
+  height: 55px;
+
+}
 
 .small-container{
   max-width: 600px;
@@ -91,4 +95,13 @@ main{
 
 .text-bold {
   font-weight: bold;
+}
+
+.drop-area{
+  width: 80vw;
+  height: 80vh;
+  border: 5px dashed black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -13,6 +13,7 @@ import { getError } from '../utils';
 import Rating from '../components/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify';
+import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -37,9 +38,7 @@ const reducer = (state, action) => {
 export default function MyCartScreen(){
     
     const navigate = useNavigate();
-    const { search } = useLocation();
-    const redirectInUrl = new URLSearchParams(search).get('redirect')
-    const redirect = redirectInUrl ? redirectInUrl : '/'
+    
     
     const { state } = useContext(Store);
     const { userInfo } = state;
@@ -78,13 +77,13 @@ export default function MyCartScreen(){
             });
             toast.success('product deleted successfully');
             //dispatch({ type: 'DELETE_SUCCESS' });
-            navigate(redirect || '/'); 
           } catch (err) {
             toast.error(getError(error));
             dispatch({
               type: 'DELETE_FAIL',
             });
           }
+          navigate('/'); 
         }
       };
 
@@ -96,6 +95,11 @@ export default function MyCartScreen(){
                 </title>
             </Helmet>
             <h1>My Ad</h1>
+            {loading ? (
+              <LoadingBox />
+            ) : error ? (
+              <MessageBox variant="danger">{error}</MessageBox>
+            ):(
             <Row>
                 <Col md={9}>
                     {ads.length === 0 ? (
@@ -148,8 +152,8 @@ export default function MyCartScreen(){
                     )
                     }
                 </Col>
-                
             </Row>
-        </div>
+            )}
+    </div>
     )
 }

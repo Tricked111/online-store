@@ -10,6 +10,11 @@ import { Store } from "../Store";
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import axios from "axios";
+
+
+
+
 
 export default function CreateServiceScreen() {
     const { search } = useLocation();
@@ -21,13 +26,21 @@ export default function CreateServiceScreen() {
     const [price, setPrice] =useState('');
     const [description, setDescription] =useState('');
     const [contact, setContact] =useState('');
+    const [selectedFile, setSelectedFile] = useState('');
 
 
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { userInfo } = state;
+
+    
   
     const submitHandler = async (e) => {
       
+      if(!selectedFile) { alert("Pick image")}
+      
+      console.log(selectedFile.name)
+      
+
       e.preventDefault();
       try {
       const { data } = await Axios.post('/api/products/createService', {
@@ -35,6 +48,7 @@ export default function CreateServiceScreen() {
         price,
         description,
         contact,
+        image : `/images/${selectedFile.name}`,
     },
     {
       headers: {
@@ -50,12 +64,6 @@ export default function CreateServiceScreen() {
       toast.error(getError(err));
     }
   };
-
-  /* useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]); */
 
 
     return (
@@ -85,6 +93,10 @@ export default function CreateServiceScreen() {
                     <Form.Control type="name" required onChange={(e) => setContact(e.target.value)}/>
                 </Form.Group>
 
+                <Form.Group className="mb-3" controlId="imageFile">
+                  <Form.Label>Upload File</Form.Label>
+                  <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                </Form.Group>
                 <div className="mb-3">
                     <Button type="submit">Confirm</Button>
                 </div>

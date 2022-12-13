@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import { isAuth,generateToken } from '../utils.js';
+import mongoose from 'mongoose';
 
 
 const userRouter = express.Router();
@@ -17,6 +18,18 @@ userRouter.get(
   })
 );
 
+
+
+
+userRouter.get('/:id', async (req, res) => {
+  var id = new mongoose.Types.ObjectId(req.params.id);
+  const users = await User.findOne({ _id: id});
+  if (users) {
+    res.send(users);
+  } else {
+    res.status(404).send({ message: 'users Not Found' });
+  }
+});
 
 userRouter.post(
   '/signin',
@@ -65,6 +78,8 @@ userRouter.put(
       if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.link = req.body.link || user.link;
+        user.image = req.body.image ? `/images/${req.body.image}` : user.image;
         if (req.body.password) {
           user.password = bcrypt.hashSync(req.body.password, 8);
         }
@@ -74,7 +89,6 @@ userRouter.put(
           _id: updatedUser._id,
           name: updatedUser.name,
           email: updatedUser.email,
-          isAdmin: updatedUser.isAdmin,
           token: generateToken(updatedUser),
         });
       } else {
@@ -89,6 +103,7 @@ userRouter.post(
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
+      image: '/images/noimg.jpg',
       password: bcrypt.hashSync(req.body.password),
     });
     const user = await newUser.save();

@@ -150,7 +150,7 @@ productRouter.get('/:id', async (req, res) => {
           price: req.body.price,
           rating: 0,
           numReviews: 0,
-          countInStock: 1000,
+          //countInStock: 1000,
           contact: req.body.contact,
           user: req.user._id,
     
@@ -175,13 +175,13 @@ productRouter.get('/:id', async (req, res) => {
           image: req.body.image || '/images/noimg.jpg',
           category: 'Product',
           description: req.body.description,
+          brand: req.body.brand,
           price: req.body.price,
           rating: 0,
           numReviews: 0,
           countInStock: req.body.countInStock,
           contact: req.body.contact,
           user: req.user._id,
-          brand: req.user.brand,
     
     
         });
@@ -204,6 +204,50 @@ productRouter.get('/:id', async (req, res) => {
         if (product) {
           await product.remove();
           res.send({ message: 'Product Deleted' });
+        } else {
+          res.status(404).send({ message: 'Product Not Found' });
+        }
+      })
+    );
+
+
+
+
+    productRouter.put(
+      '/Service/:id',
+      isAuth,
+      expressAsyncHandler(async (req, res) => {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+        if (product) {
+          product.name = req.body.name;
+          product.price = req.body.price;
+          product.contact= req.body.contact;
+          product.description = req.body.description;
+          product.image = req.body.image;
+          await product.save();
+          res.send({ message: 'Product Updated' });
+        } else {
+          res.status(404).send({ message: 'Product Not Found' });
+        }
+      })
+    );
+    productRouter.put(
+      '/Product/:id',
+      isAuth,
+      expressAsyncHandler(async (req, res) => {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+        if (product) {
+          product.name = req.body.name;
+          product.price = req.body.price;
+          product.contact= req.body.contact;
+          product.description = req.body.description;
+          product.brand = req.body.brand,
+          product.countInStock = req.body.countInStock,
+          product.image = req.body.image;
+          await product.save();
+          res.send({ message: 'Product Updated' });
         } else {
           res.status(404).send({ message: 'Product Not Found' });
         }

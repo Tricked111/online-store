@@ -14,7 +14,8 @@ import MessageBox from "../components/MessageBox";
 import { getError } from "../utils";
 import { useContext } from 'react'
 import { Store } from "../Store";
-
+import Modal from 'react-bootstrap/Modal';
+import { Link } from "react-router-dom";
 const reducer = (state,action) => {
     switch(action.type){
       case 'FETCH_REQUEST':
@@ -23,6 +24,8 @@ const reducer = (state,action) => {
         return {...state,product: action.payload, loading: false};
       case 'FETCH_FAIL':
         return {...state,loading: false,error: action.payload};
+      case 'USERINFO_SUCCUES':
+        return {...state,userInfo : action.payload};
       default:
         return state;
       }
@@ -34,19 +37,29 @@ function ProductScreen (){
     const navigate = useNavigate();
     const params = useParams();
     const {slug} = params;
+    const [show, setShow] = useState(false);
 
-    const [{loading,error,product},dispatch] = useReducer((reducer),{
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [{loading,error,product,userInfo},dispatch] = useReducer((reducer),{
         product: [],
         loading: true,
         error: '',
+        userInfo: [],
       });
-      //const [products,setProducts] = useState([]);
+      
       useEffect(() =>{
         const fetchData = async () => {
     
           dispatch({type: 'FETCH_REQUEST'});
           try{
             const result = await axios.get(`/api/products/slug/${slug}`);
+            
+            if(result.data.user){
+               const userInfo =  await axios.get(`/api/users/${result.data.user}`); 
+               dispatch({ type: 'USERINFO_SUCCUES', payload: userInfo.data })       
+            }
             dispatch({type:'FETCH_SUCCUES',payload: result.data });
           }catch(err){
             dispatch({type: 'FETCH_FAIL',payload: getError(err)});
@@ -54,6 +67,7 @@ function ProductScreen (){
         };
         fetchData();
       },[slug]);
+
 
     const {state,dispatch: ctxDispatch} = useContext(Store);
 
@@ -127,6 +141,35 @@ function ProductScreen (){
                         </ListGroup.Item>
                             )
                         }
+                        <ListGroup.Item>
+                            <Button variant="primary" onClick={handleShow}>
+                                About Seller
+                            </Button>
+                            <Modal show={show} onHide={handleClose} size="lg">
+                            <Modal.Header closeButton>
+                            <Modal.Title>Info</Modal.Title>
+                            </Modal.Header>
+                            <Row>
+                            <Col md={6}>
+                                <img 
+                                src={userInfo.image}
+                                alt={userInfo.image}
+                                className="img-fluid rounder "></img>
+                            </Col>
+                            <Col md={5}>
+                            {userInfo.name && (<Modal.Body>Name: {userInfo.name}</Modal.Body>)}
+                            {userInfo.link && (<Modal.Body>Link: <Link to={`${userInfo.link}`}>{userInfo.link}</Link></Modal.Body>)}
+                            {userInfo.email && (<Modal.Body>Email: {userInfo.email}</Modal.Body>)}
+                            </Col>
+                            </Row>
+                            <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            
+                            </Modal.Footer>
+                        </Modal>
+                        </ListGroup.Item>
                     
 
                     </ListGroup>
@@ -163,6 +206,7 @@ function ProductScreen (){
                                     </div>
                                 </ListGroup.Item>
                                 )}
+                                
 
                             </ListGroup>
                         </Card.Body>

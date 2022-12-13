@@ -23,6 +23,7 @@ export default function CreateProductScreen() {
     const [contact, setContact] =useState('');
     const [countInStock, setcountInStock] =useState('');
     const [brand, setBrand] =useState('');
+    const [selectedFile, setSelectedFile] = useState('');
 
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { userInfo } = state;
@@ -30,6 +31,7 @@ export default function CreateProductScreen() {
     const submitHandler = async (e) => {
       e.preventDefault();
       try {
+      if(!selectedFile) { alert("Pick image")}  
       const { data } = await Axios.post('/api/products/createProduct', {
         name,
         price,
@@ -37,6 +39,7 @@ export default function CreateProductScreen() {
         contact,
         countInStock,
         brand,
+        image : `/images/${selectedFile.name}`,
     },
     {
       headers: {
@@ -91,6 +94,10 @@ export default function CreateProductScreen() {
                 <Form.Group className="mb-3" controlid="contact">
                     <Form.Label>Contact Info</Form.Label>
                     <Form.Control type="contact" required onChange={(e) => setContact(e.target.value)}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="imageFile">
+                  <Form.Label>Upload File</Form.Label>
+                  <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
                 </Form.Group>
 
                 <div className="mb-3">

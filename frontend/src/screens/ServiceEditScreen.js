@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -18,11 +19,18 @@ const reducer = (state, action) => {
       return { ...state, loading: false };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
+      case 'UPDATE_REQUEST':
+      return { ...state, loadingUpdate: true };
+    case 'UPDATE_SUCCESS':
+      return { ...state, loadingUpdate: false };
+    case 'UPDATE_FAIL':
+      return { ...state, loadingUpdate: false };
     default:
       return state;
   }
 };
 export default function ServiceEditScreen() {
+  const navigate = useNavigate();
   const params = useParams(); // /product/:id
   const { id: productId } = params;
 
@@ -41,20 +49,17 @@ export default function ServiceEditScreen() {
   const [countInStock, setCountInStock] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
-
+  const [contact, setContact] = useState('');
+  const [selectedFile, setSelectedFile] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/products/${productId}`);
         setName(data.name);
-        setSlug(data.slug);
         setPrice(data.price);
-        setImage(data.image);
-        setCategory(data.category);
-        setCountInStock(data.countInStock);
-        setBrand(data.brand);
         setDescription(data.description);
+        setContact(data.contact);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -66,19 +71,49 @@ export default function ServiceEditScreen() {
     fetchData();
   }, [productId]);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch({ type: 'UPDATE_REQUEST' });
+      await axios.put(
+        `/api/products/Service/${productId}`,
+        {
+          _id: productId,
+          name,
+          price,
+          image : `/images/${selectedFile.name}`,
+          description,
+          contact,
+        },
+        {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({
+        type: 'UPDATE_SUCCESS',
+      });
+      toast.success('Product updated successfully');
+      navigate('/MyAd');
+    } catch (err) {
+      toast.error(getError(err));
+      dispatch({ type: 'UPDATE_FAIL' });
+    }
+  };
+
+
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit Product ${productId}</title>
+        <title>Edit Service</title>
       </Helmet>
-      <h1>Edit Product {productId}</h1>
+      <h1>Edit Service</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <Form>
+        <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -87,14 +122,14 @@ export default function ServiceEditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="slug">
+          {/* <Form.Group className="mb-3" controlId="slug">
             <Form.Label>Slug</Form.Label>
             <Form.Control
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               required
             />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Price</Form.Label>
             <Form.Control
@@ -103,38 +138,38 @@ export default function ServiceEditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="image">
+          {/* <Form.Group className="mb-3" controlId="image">
             <Form.Label>Image File</Form.Label>
             <Form.Control
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="category">
+          </Form.Group> */}
+          {/* <Form.Group className="mb-3" controlId="category">
             <Form.Label>Category</Form.Label>
             <Form.Control
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="brand">
+          </Form.Group> */}
+          {/* <Form.Group className="mb-3" controlId="brand">
             <Form.Label>Brand</Form.Label>
             <Form.Control
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               required
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="countInStock">
+          </Form.Group> */}
+         {/*  <Form.Group className="mb-3" controlId="countInStock">
             <Form.Label>Count In Stock</Form.Label>
             <Form.Control
               value={countInStock}
               onChange={(e) => setCountInStock(e.target.value)}
               required
             />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -143,6 +178,18 @@ export default function ServiceEditScreen() {
               required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="description">
+            <Form.Label>Contact</Form.Label>
+            <Form.Control
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="imageFile">
+                  <Form.Label>Upload File</Form.Label>
+                  <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                </Form.Group>
           <div className="mb-3">
             <Button type="submit">Update</Button>
           </div>

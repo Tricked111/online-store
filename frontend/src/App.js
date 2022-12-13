@@ -34,6 +34,10 @@ import CreateProductScreen from './screens/CreateProductScreen';
 import MyAdScreen from './screens/MyAdScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import ServiceEditScreen from './screens/ServiceEditScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 function App() {
   const { state, dispatch: ctxDispatch} = useContext(Store);
   const { cart,userInfo } = state;
@@ -83,10 +87,11 @@ function App() {
             <LinkContainer to="/">
               <Navbar.Brand>Marketplace</Navbar.Brand>
             </LinkContainer>
-            <Nav className="me-auto">
+            <Nav className="me-auto w-100 justify-content-end">
             <SearchBox />
               <Link to="/cart" className='nav-link'>
-                Cart
+              <i class="fa-solid fa-cart-shopping"></i>
+              Cart
                 {
                   cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
@@ -94,6 +99,9 @@ function App() {
                     </Badge>
                   )
                 }
+              </Link>
+              <Link to="/Placead" className='nav-link'>
+               Place ad
               </Link>
               {userInfo ? (
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
@@ -103,9 +111,7 @@ function App() {
                     <LinkContainer to="/orderhistory">
                       <NavDropdown.Item>Order History</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/Placead">
-                      <NavDropdown.Item>Place ad</NavDropdown.Item>
-                    </LinkContainer>
+                   
                     <LinkContainer to="/MyAd">
                       <NavDropdown.Item>My Ad</NavDropdown.Item>
                     </LinkContainer>
@@ -166,6 +172,10 @@ function App() {
               <Route path="/Placead" element={<CreateOrderStartScreen />} />
               <Route path="/Placead/Service" element={<CreateServiceScreen/>} />
               <Route path="/Placead/Product" element={<CreateProductScreen/>} />
+              <Route
+                path="/orderhistory"
+                element={<OrderHistoryScreen />}
+              ></Route>
               <Route
                 path="/MyAd/Product/edit/:id"
                 element={

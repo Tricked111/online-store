@@ -30,6 +30,8 @@ export default function ProfileScreen() {
     const [email, setEmail] = useState(userInfo.email);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [link, setLink] = useState('');
+    const [image, setImage] = useState('');
 
 
     const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
@@ -45,6 +47,8 @@ export default function ProfileScreen() {
               name,
               email,
               password,
+              link,
+              image : image.name,
             },
             {
               headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -89,6 +93,29 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
+        
+        
+        <Form.Group className="mb-3" controlId="link">
+          <Form.Label>Link</Form.Label>
+          <Form.Control
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+          />
+        </Form.Group>
+
+
+        <Form.Group className="mb-3" controlId="imageFile">
+          <Form.Label>Upload Photo</Form.Label>
+          <Form.Control
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+        </Form.Group>
+        
+       
+
+        
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
