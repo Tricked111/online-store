@@ -51,7 +51,7 @@ function Home(){
         <Helmet>
           <title>Marketplace</title>
         </Helmet>
-        <h1>Featured products</h1>
+        <h1>All products and services</h1>
         <div className="products">
 
         {loading? (
