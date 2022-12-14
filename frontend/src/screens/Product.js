@@ -130,9 +130,9 @@ function Product (){
                             Price : ${product.price}
                         </ListGroup.Item>
                     
-                        <ListGroup.Item>
+                        <ListGroup.Item >
                             Description:
-                            <p>{product.description}</p>
+                            <p width="300px">{product.description}</p>
                         </ListGroup.Item>
                         {
                             product.contact && (
@@ -142,6 +142,7 @@ function Product (){
                         </ListGroup.Item>
                             )
                         }
+                        {userInfo.name &&(
                         <ListGroup.Item>
                             <Button variant="dark" onClick={handleShow} className="but-color">
                                 About Seller
@@ -171,7 +172,7 @@ function Product (){
                             </Modal.Footer>
                         </Modal>
                         </ListGroup.Item>
-                    
+                        )}
 
                     </ListGroup>
                     

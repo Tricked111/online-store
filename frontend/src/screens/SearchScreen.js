@@ -192,7 +192,7 @@ export default function SearchScreen() {
                     to={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? 'text-bold nav-link' : 'nav-link'}
                   >
-                    <Rating caption={' & up'} rating={r.rating}></Rating>
+                    <Rating caption={' '} rating={r.rating}></Rating>
                   </Link>
                 </li>
               ))}
@@ -201,7 +201,7 @@ export default function SearchScreen() {
                   to={getFilterUrl({ rating: 'all' })}
                   className={rating === 'all' ? 'text-bold nav-link' : 'nav-link'}
                 >
-                  <Rating caption={' & up'} rating={0}></Rating>
+                  <Rating caption={' '} rating={0}></Rating>
                 </Link>
               </li>
             </ul>
@@ -257,7 +257,7 @@ export default function SearchScreen() {
 
               <Row>
                 {products.map((product) => (
-                  <Col sm={6} lg={4} className="mb-3" key={product._id}>
+                  <Col sm={6} lg={4} className="mb-4 " key={product._id}>
                     <Product product={product}></Product>
                   </Col>
                 ))}

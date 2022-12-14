@@ -35,8 +35,17 @@ main{
   padding: 1rem;
 }
 
+.card-product{
+  height: 100%;
+  max-height: 300px;
+  min-height: 300px;
+}
+
+
+
 .rating span{
-  color: #ffc000;
+  color: #cdbea7;
+  /* color: #ffc000; */
 }
 
 .btn-primary,
@@ -122,4 +131,9 @@ main{
 .select-color{
   background-color: #e1b689;
   color-scheme: black;
+}
+
+
+.background-color{
+  background-color: white;
 }

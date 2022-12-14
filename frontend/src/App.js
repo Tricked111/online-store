@@ -161,7 +161,7 @@ function App() {
             ))}
           </Nav>
         </div>
-      <main>
+      <main className='background-color'>
         <Container className='mt-3'>
             <Routes>
               <Route path="/product/:slug" element={<Product />} />
