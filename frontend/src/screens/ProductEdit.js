@@ -13,17 +13,17 @@ import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case 'F_REQ':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
       return { ...state, loading: false };
-    case 'FETCH_FAIL':
+    case 'F_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
-export default function ProductEditScreen() {
+export default function ProductEdit() {
   const navigate = useNavigate();
   const params = useParams(); // /product/:id
   const { id: productId } = params;
@@ -46,7 +46,7 @@ export default function ProductEditScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
+        dispatch({ type: 'F_REQ' });
         const { data } = await axios.get(`/api/products/${productId}`);
         setName(data.name);
         setPrice(data.price);
@@ -58,7 +58,7 @@ export default function ProductEditScreen() {
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: 'F_FAIL',
           payload: getError(err),
         });
       }

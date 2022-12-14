@@ -32,7 +32,7 @@ const reducer = (state, action) => {
 
 
 
-export default function PlaceOrderScreen() {
+export default function CreateOrder() {
   const navigate = useNavigate();
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,

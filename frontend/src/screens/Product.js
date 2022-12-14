@@ -19,11 +19,11 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 const reducer = (state,action) => {
     switch(action.type){
-      case 'FETCH_REQUEST':
+      case 'F_REQ':
         return {...state,loading: true};
-      case 'FETCH_SUCCUES':
+      case 'F_SUC':
         return {...state,product: action.payload, loading: false};
-      case 'FETCH_FAIL':
+      case 'F_FAIL':
         return {...state,loading: false,error: action.payload};
       case 'USERINFO_SUCCUES':
         return {...state,userInfo : action.payload};
@@ -34,7 +34,7 @@ const reducer = (state,action) => {
 
 
 
-function ProductScreen (){
+function Product (){
     const navigate = useNavigate();
     const params = useParams();
     const {slug} = params;
@@ -53,7 +53,7 @@ function ProductScreen (){
       useEffect(() =>{
         const fetchData = async () => {
     
-          dispatch({type: 'FETCH_REQUEST'});
+          dispatch({type: 'F_REQ'});
           try{
             const result = await axios.get(`/api/products/slug/${slug}`);
             
@@ -61,9 +61,9 @@ function ProductScreen (){
                const userInfo =  await axios.get(`/api/users/${result.data.user}`); 
                dispatch({ type: 'USERINFO_SUCCUES', payload: userInfo.data })       
             }
-            dispatch({type:'FETCH_SUCCUES',payload: result.data });
+            dispatch({type:'F_SUC',payload: result.data });
           }catch(err){
-            dispatch({type: 'FETCH_FAIL',payload: getError(err)});
+            dispatch({type: 'F_FAIL',payload: getError(err)});
           }
         };
         fetchData();
@@ -217,4 +217,4 @@ function ProductScreen (){
         </div>);
 }
 
-export default ProductScreen
+export default Product

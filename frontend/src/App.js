@@ -2,8 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import data from "./data";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
+import Home from './screens/Home';
+import Product from './screens/Product';
 import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -12,13 +12,13 @@ import Container from 'react-bootstrap/Container'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Store } from './Store';
 import { useContext, useEffect, useState } from 'react'
-import CartScreen from './screens/CartScreen';
+import Cart from './screens/Cart';
 import SigninScreen from './screens/SiginScreen';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
-import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import Pay from './screens/Pay';
 import ProfileScreen from './screens/ProfileScreen';
 import { toast} from 'react-toastify';
 import Button from 'react-bootstrap/Button';
@@ -26,15 +26,15 @@ import { getError } from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
-import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import CreateOrder from './screens/CreateOrder';
 import SignupScreen from './screens/SignUpScreen';
 import CreateOrderStartScreen from './screens/CreateOrderStartScreen';
 import CreateServiceScreen from './screens/CreateServiceScreen';
-import CreateProductScreen from './screens/CreateProductScreen';
-import MyAdScreen from './screens/MyAdScreen';
-import ProductEditScreen from './screens/ProductEditScreen';
+import CreateProduct from './screens/CreateProduct';
+import MyAd from './screens/MyAd';
+import ProductEdit from './screens/ProductEdit';
 import ServiceEditScreen from './screens/ServiceEditScreen';
-import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import HistoryOrder from './screens/HistoryOrder';
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -161,25 +161,25 @@ function App() {
       <main>
         <Container className='mt-3'>
             <Routes>
-              <Route path="/product/:slug" element={<ProductScreen />} />
-              <Route path="/cart" element={<CartScreen />} />
-              <Route path="/" element={<HomeScreen />} />
+              <Route path="/product/:slug" element={<Product />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/" element={<Home />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/search" element={<SearchScreen />} />
-              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/placeorder" element={<CreateOrder />} />
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/Placead" element={<CreateOrderStartScreen />} />
               <Route path="/Placead/Service" element={<CreateServiceScreen/>} />
-              <Route path="/Placead/Product" element={<CreateProductScreen/>} />
+              <Route path="/Placead/Product" element={<CreateProduct/>} />
               <Route
                 path="/orderhistory"
-                element={<OrderHistoryScreen />}
+                element={<HistoryOrder />}
               ></Route>
               <Route
                 path="/MyAd/Product/edit/:id"
                 element={
-                    <ProductEditScreen />
+                    <ProductEdit />
                 }
               ></Route>
               <Route
@@ -188,12 +188,12 @@ function App() {
                     <ServiceEditScreen />
                 }
               ></Route>
-              <Route path="/MyAd" element={<MyAdScreen/>} />
+              <Route path="/MyAd" element={<MyAd/>} />
               <Route
                 path="/shipping"
                 element={<ShippingAddressScreen />}
               ></Route>
-              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
+              <Route path="/payment" element={<Pay />}></Route>
             </Routes>
         </Container>
       </main>

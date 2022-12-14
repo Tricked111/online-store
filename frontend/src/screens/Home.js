@@ -12,11 +12,11 @@ import MessageBox from "../components/MessageBox";
 
 const reducer = (state,action) => {
   switch(action.type){
-    case 'FETCH_REQUEST':
+    case 'F_REQ':
       return {...state,loading: true};
-    case 'FETCH_SUCCUES':
+    case 'F_SUC':
       return {...state,products: action.payload, loading: false};
-    case 'FETCH_FAIL':
+    case 'F_FAIL':
       return {...state,loading: false,error: action.payload};
     default:
       return state;
@@ -24,7 +24,7 @@ const reducer = (state,action) => {
 }
 
 
-function HomeScreen(){
+function Home(){
   
   const [{loading,error,products},dispatch] = useReducer(logger(reducer),{
     products: [],
@@ -35,12 +35,12 @@ function HomeScreen(){
   useEffect(() =>{
     const fetchData = async () => {
 
-      dispatch({type: 'FETCH_REQUEST'});
+      dispatch({type: 'F_REQ'});
       try{
         const result = await axios.get('/api/products');
-        dispatch({type:'FETCH_SUCCUES',payload: result.data });
+        dispatch({type:'F_SUC',payload: result.data });
       }catch(err){
-        dispatch({type: 'FETCH_FAIL',payload: err.message});
+        dispatch({type: 'F_FAIL',payload: err.message});
       }
       const result = await axios.get('/api/products');
       //setProducts(result.data);
@@ -71,4 +71,4 @@ function HomeScreen(){
     </div>;
 }
 
-export default HomeScreen;
+export default Home;

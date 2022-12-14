@@ -11,7 +11,7 @@ import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 
-export default function CreateProductScreen() {
+export default function CreateProduct() {
     const { search } = useLocation();
     const navigate = useNavigate();
     const redirectInUrl = new URLSearchParams(search).get('redirect')

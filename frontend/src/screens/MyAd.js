@@ -17,7 +17,7 @@ import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
     switch (action.type) {
-      case 'FETCH_REQUEST':
+      case 'F_REQ':
         return { ...state, loading: true };
       case 'FETCH_SUCCESS':
         return {
@@ -25,7 +25,7 @@ const reducer = (state, action) => {
           ads: action.payload,
           loading: false,
         };
-      case 'FETCH_FAIL':
+      case 'F_FAIL':
         return { ...state, loading: false, error: action.payload };
       default:
         return state;
@@ -35,7 +35,7 @@ const reducer = (state, action) => {
 
 
 
-export default function MyCartScreen(){
+export default function MyAd(){
     
     const navigate = useNavigate();
     
@@ -51,7 +51,7 @@ export default function MyCartScreen(){
     useEffect(() => {
       const fetchData = async () => {
         try {
-          dispatch({ type: 'FETCH_REQUEST' });
+          dispatch({ type: 'F_REQ' });
           const { data } = await axios.get(`/api/products/user`, {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           });
@@ -59,7 +59,7 @@ export default function MyCartScreen(){
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
         } catch (err) {
           dispatch({
-            type: 'FETCH_FAIL',
+            type: 'F_FAIL',
             payload: getError(err),
           });
         }

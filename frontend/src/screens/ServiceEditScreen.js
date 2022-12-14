@@ -13,11 +13,11 @@ import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case 'F_REQ':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
       return { ...state, loading: false };
-    case 'FETCH_FAIL':
+    case 'F_FAIL':
       return { ...state, loading: false, error: action.payload };
       case 'UPDATE_REQUEST':
       return { ...state, loadingUpdate: true };
@@ -54,7 +54,7 @@ export default function ServiceEditScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
+        dispatch({ type: 'F_REQ' });
         const { data } = await axios.get(`/api/products/${productId}`);
         setName(data.name);
         setPrice(data.price);
@@ -63,7 +63,7 @@ export default function ServiceEditScreen() {
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: 'F_FAIL',
           payload: getError(err),
         });
       }

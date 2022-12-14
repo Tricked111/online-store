@@ -15,7 +15,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case 'F_REQ':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
       return {
@@ -26,7 +26,7 @@ const reducer = (state, action) => {
         countProducts: action.payload.countProducts,
         loading: false,
       };
-    case 'FETCH_FAIL':
+    case 'F_FAIL':
       return { ...state, loading: false, error: action.payload };
 
     default:
@@ -97,7 +97,7 @@ export default function SearchScreen() {
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: 'F_FAIL',
           payload: getError(error),
         });
       }

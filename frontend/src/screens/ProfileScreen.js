@@ -62,7 +62,7 @@ export default function ProfileScreen() {
           toast.success('User updated successfully');
         } catch (err) {
           dispatch({
-            type: 'FETCH_FAIL',
+            type: 'F_FAIL',
           });
           toast.error(getError(err));
         }
