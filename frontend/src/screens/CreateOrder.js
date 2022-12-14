@@ -1,3 +1,11 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Marina Kravchuk (xkravc02)
+ * 
+ *****************************************************************************/
+
+
 import React, { useContext, useEffect,useReducer  } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';

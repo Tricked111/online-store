@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Tiurin (xtiuri02)
+ * 
+ *****************************************************************************/
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';

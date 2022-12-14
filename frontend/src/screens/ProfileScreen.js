@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Marina Kravchuk (xkravc02)
+ * 
+ *****************************************************************************/
 import React, { useContext, useReducer, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Form from 'react-bootstrap/Form';

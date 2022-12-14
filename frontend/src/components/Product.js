@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Kniazkin (xkniaz00)
+ * 
+ *****************************************************************************/
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";

@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Kniazkin (xkniaz00)
+ * 
+ *****************************************************************************/
 function Rating(props){
     const {rating,numReviews,caption} = props;
     return(

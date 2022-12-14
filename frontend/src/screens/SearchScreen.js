@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Kniazkin (xkniaz00)
+ * 
+ *****************************************************************************/
 import React, { useEffect, useReducer, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';

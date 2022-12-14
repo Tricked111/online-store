@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Kniazkin (xkniaz00)
+ * 
+ *****************************************************************************/
 import express from 'express';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';

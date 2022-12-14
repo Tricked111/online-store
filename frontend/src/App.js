@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Kniazkin (xkniaz00)
+ * 
+ *****************************************************************************/
 import logo from './logo.svg';
 import './App.css';
 import data from "./data";
@@ -35,8 +41,7 @@ import MyAd from './screens/MyAd';
 import ProductEdit from './screens/ProductEdit';
 import ServiceEditScreen from './screens/ServiceEditScreen';
 import HistoryOrder from './screens/HistoryOrder';
-import ReactDOM from 'react-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 function App() {
   const { state, dispatch: ctxDispatch} = useContext(Store);

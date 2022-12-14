@@ -1,4 +1,9 @@
-//import data from "../data";
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Tiurin (xtiuri02)
+ * 
+ *****************************************************************************/
 import { Link } from "react-router-dom";
 import { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';

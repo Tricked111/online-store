@@ -1,3 +1,10 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Marina Kravchuk (xkravc02)
+ * 
+ *****************************************************************************/
+
 import {Navigate, useNavigate, useParams} from "react-router-dom"
 import axios from 'axios';
 import { useState, useEffect, useReducer } from 'react';

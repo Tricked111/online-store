@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Marina Kravchuk (xkravc02)
+ * 
+ *****************************************************************************/
 import express from 'express';
 import Product from '../models/productModel.js';
 import data from '../data.js';

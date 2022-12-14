@@ -1,3 +1,9 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Marina Kravchuk (xkravc02)
+ * 
+ *****************************************************************************/
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'

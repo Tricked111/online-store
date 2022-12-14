@@ -1,3 +1,11 @@
+/******************************************************************************
+ *                                  ITU
+ * 
+ *      Authors: Daniil Kniazkin (xkniaz00)
+ * 
+ *****************************************************************************/
+
+
 import { useContext } from 'react';
 import { Store } from '../Store'
 import { Helmet } from 'react-helmet-async'
@@ -66,7 +74,7 @@ export default function Cart(){
                                         alt={item.name}
                                         className="img-fluid rounder img-thumbnail">
                                         </img>{' '}
-                                        <Link variant="dark" to={`/product/${item.slug}`} >{item.name}</Link>
+                                        <Link  to={`/product/${item.slug}`} >{item.name}</Link>
                                      </Col>
                                      <Col md={3}>
                                         <Button 
