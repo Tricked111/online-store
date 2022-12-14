@@ -90,7 +90,7 @@ function App() {
             <Nav className="me-auto w-100 justify-content-end">
             <SearchBox />
               <Link to="/cart" className='nav-link'>
-              <i class="fa-solid fa-cart-shopping"></i>
+              <i className="fa-solid fa-cart-shopping"></i>
               Cart
                 {
                   cart.cartItems.length > 0 && (
@@ -199,7 +199,7 @@ function App() {
       </main>
       {/* footer */}
       <footer>
-        <div className='text-center'>TODO</div>
+        <div className='text-center'>ITU</div>
       </footer>
 
 
