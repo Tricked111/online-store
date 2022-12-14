@@ -98,7 +98,7 @@ export default function CreateServiceScreen() {
                   <Form.Control type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
                 </Form.Group>
                 <div className="mb-3">
-                    <Button type="submit">Confirm</Button>
+                    <Button type="submit" className="but-color" variant="dark">Confirm</Button>
                 </div>
             </Form>
 

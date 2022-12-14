@@ -105,3 +105,21 @@ main{
   align-items: center;
   justify-content: center;
 }
+
+.color-nav{
+  background-color: black;
+}
+
+.but-color{
+  background-color: #e1b689;
+  color: #000;
+}
+
+.side-color{
+  color: #e1b689;
+}
+
+.select-color{
+  background-color: #e1b689;
+  color-scheme: black;
+}

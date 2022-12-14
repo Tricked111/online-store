@@ -30,7 +30,6 @@ export default function Pay() {
   };
   return (
     <div>
-      <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="container small-container">
         <Helmet>
           <title>Payment Method</title>
@@ -58,7 +57,7 @@ export default function Pay() {
             />
           </div>
           <div className="mb-3">
-            <Button type="submit">Continue</Button>
+            <Button type="submit" className="but-color" variant="dark">Continue</Button>
           </div>
         </Form>
       </div>

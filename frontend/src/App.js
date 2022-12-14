@@ -76,9 +76,10 @@ function App() {
         }>
     <ToastContainer position="top-right" limit={1} />
       <header>
-        <Navbar bg="dark" variant="dark">
+        <Navbar  className="color-nav" variant="dark">
           <Container>
           <Button
+                className="color-nav"
                 variant="dark"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
@@ -87,6 +88,7 @@ function App() {
             <LinkContainer to="/">
               <Navbar.Brand>Marketplace</Navbar.Brand>
             </LinkContainer>
+            
             <Nav className="me-auto w-100 justify-content-end">
             <SearchBox />
               <Link to="/cart" className='nav-link'>
@@ -151,8 +153,9 @@ function App() {
                     pathname: "/search",
                     search: `?category=${category}`
                   }}
+                  /* className="text-bold side-color" */
                   onClick={() => setSidebarIsOpen(false)}>
-                  <Nav.Link>{category}</Nav.Link>
+                  <Nav.Link className="text-bold side-color">{category}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}

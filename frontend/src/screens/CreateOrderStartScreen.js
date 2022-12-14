@@ -46,7 +46,7 @@ export default function CreateOrderStartScreen() {
                 </Form.Group>
 
                 <div className="mb-3">
-                    <Button type="submit">Next</Button>
+                    <Button type="submit" className="but-color" variant="dark">Next</Button>
                 </div>
             </Form>
 

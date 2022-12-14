@@ -142,7 +142,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === category ? 'text-bold' : ''}
+                  className={'all' === category ? 'text-bold nav-link' : 'nav-link'}
                   to={getFilterUrl({ category: 'all' })}
                 >
                   Any
@@ -151,7 +151,7 @@ export default function SearchScreen() {
               {categories.map((c) => (
                 <li key={c}>
                   <Link
-                    className={c === category ? 'text-bold' : ''}
+                    className={c === category ? 'text-bold nav-link' : 'nav-link'}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
@@ -165,7 +165,7 @@ export default function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={'all' === price ? 'text-bold' : ''}
+                  className={'all' === price ? 'text-bold nav-link' : 'nav-link'}
                   to={getFilterUrl({ price: 'all' })}
                 >
                   Any
@@ -175,7 +175,7 @@ export default function SearchScreen() {
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? 'text-bold' : ''}
+                    className={p.value === price ? 'text-bold nav-link' : 'nav-link'}
                   >
                     {p.name}
                   </Link>
@@ -190,7 +190,7 @@ export default function SearchScreen() {
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
+                    className={`${r.rating}` === `${rating}` ? 'text-bold nav-link' : 'nav-link'}
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>
                   </Link>
@@ -199,7 +199,7 @@ export default function SearchScreen() {
               <li>
                 <Link
                   to={getFilterUrl({ rating: 'all' })}
-                  className={rating === 'all' ? 'text-bold' : ''}
+                  className={rating === 'all' ? 'text-bold nav-link' : 'nav-link'}
                 >
                   <Rating caption={' & up'} rating={0}></Rating>
                 </Link>
@@ -238,6 +238,7 @@ export default function SearchScreen() {
                 <Col className="text-end">
                   Sort by{' '}
                   <select
+                    className='select-color'
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));

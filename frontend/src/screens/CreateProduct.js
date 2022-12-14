@@ -101,7 +101,7 @@ export default function CreateProduct() {
                 </Form.Group>
 
                 <div className="mb-3">
-                    <Button type="submit">Confirm</Button>
+                    <Button type="submit" className="but-color" variant="dark">Confirm</Button>
                 </div>
             </Form>
 

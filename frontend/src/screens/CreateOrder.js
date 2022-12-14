@@ -45,7 +45,7 @@ export default function CreateOrder() {
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
-  cart.taxPrice = round2(0.15 * cart.itemsPrice);
+  cart.taxPrice = round2(0 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const placeOrderHandler = async () => {
@@ -89,7 +89,6 @@ export default function CreateOrder() {
 
   return (
     <div>
-      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <Helmet>
         <title>Preview Order</title>
       </Helmet>
@@ -163,12 +162,7 @@ export default function CreateOrder() {
                     <Col>${cart.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax</Col>
-                    <Col>${cart.taxPrice.toFixed(2)}</Col>
-                  </Row>
-                </ListGroup.Item>
+                
                 <ListGroup.Item>
                   <Row>
                     <Col>
@@ -182,6 +176,7 @@ export default function CreateOrder() {
                 <ListGroup.Item>
                   <div className="d-grid">
                     <Button
+                      className="but-color" variant="dark"
                       type="button"
                       onClick={placeOrderHandler}
                       disabled={cart.cartItems.length === 0}

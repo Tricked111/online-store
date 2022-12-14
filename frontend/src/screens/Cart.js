@@ -66,7 +66,7 @@ export default function Cart(){
                                         alt={item.name}
                                         className="img-fluid rounder img-thumbnail">
                                         </img>{' '}
-                                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                                        <Link variant="dark" to={`/product/${item.slug}`} >{item.name}</Link>
                                      </Col>
                                      <Col md={3}>
                                         <Button 
@@ -117,11 +117,11 @@ export default function Cart(){
                                 <ListGroup.Item>
                                     <div className='d-grid'>
                                         <Button
+                                        className="but-color" variant="dark"
                                         type="button"
                                         onClick={checkoutHandler}
-                                        variant='primary'
                                         disabled={cartItems.length === 0}>
-                                            Proceed to Checkout
+                                            Checkout
                                         </Button>
                                     </div>
                                 </ListGroup.Item>

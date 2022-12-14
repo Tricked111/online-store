@@ -143,7 +143,7 @@ function Product (){
                             )
                         }
                         <ListGroup.Item>
-                            <Button variant="primary" onClick={handleShow}>
+                            <Button variant="dark" onClick={handleShow} className="but-color">
                                 About Seller
                             </Button>
                             <Modal show={show} onHide={handleClose} size="lg">
@@ -201,7 +201,7 @@ function Product (){
                                 {product.countInStock > 0 && (
                                     <ListGroup.Item>
                                     <div className="d-grid">
-                                        <Button onClick={addToCartHandler} variant="primary">
+                                        <Button onClick={addToCartHandler} className="but-color" variant="dark">
                                             Add to Cart
                                         </Button>
                                     </div>
